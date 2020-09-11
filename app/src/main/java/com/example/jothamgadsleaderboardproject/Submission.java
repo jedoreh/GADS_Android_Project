@@ -18,6 +18,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.FormUrlEncoded;
 
 public class Submission extends AppCompatActivity {
 
@@ -98,7 +99,12 @@ public class Submission extends AppCompatActivity {
                         edtGitHub.getText().toString());
 
 
-                Call<Post> call = jsonPlaceHolderApi.createPost(post);
+
+
+                Call<Post> call = jsonPlaceHolderApi.createPost(edtEmail.getText().toString(),
+                        edtFirstName.getText().toString(),
+                        edtLastName.getText().toString(),
+                        edtGitHub.getText().toString());
 
                 call.enqueue(new Callback<Post>() {
                     @Override
@@ -108,10 +114,11 @@ public class Submission extends AppCompatActivity {
                             cardViewSubmitFail.setVisibility(View.VISIBLE);
                             return;
                         }
+                        else {
 
 
-                        Post postResponse = response.body();
-
+                            cardViewSubmitSuccess.setVisibility(View.VISIBLE);
+                        }
 
                     }
 
@@ -126,8 +133,6 @@ public class Submission extends AppCompatActivity {
 
 
 
-
-                cardViewSubmitSuccess.setVisibility(View.VISIBLE);
             }
         });
 
